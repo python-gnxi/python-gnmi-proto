@@ -1,0 +1,4 @@
+[submodule "vendor/github.com/openconfig/gnmi"]
+	path = vendor/github.com/openconfig/gnmi
+	url = https://github.com/openconfig/gnmi.git
+	branch = master

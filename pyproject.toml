@@ -1,0 +1,42 @@
+[build-system]
+requires = ["poetry-core>=1.0.0a5"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "gnmi-proto"
+version = "0.1.0"
+description = "A python package containing gnmi proto specification and generated python code."
+authors = ["Arun Babu Neelicattu <arun.neelicattu@gmail.com>"]
+license = "MIT"
+packages = [
+    { include = "gnmi", from = "src" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+protobuf = "^3.12.2"
+grpcio = "^1.30.0"
+betterproto = { version = "^2.0.0b1", allow-prereleases = true }
+
+[tool.poetry.dev-dependencies]
+grpcio-tools = "^1.30.0"
+black = "^19.10b0"
+pytest-grpc = "^0.8.0"
+pytest = "^5.4.3"
+betterproto = { version = "^2.0.0b1", allow-prereleases = true, extras = ["compiler"] }
+
+[tool.black]
+line-length = 88
+include = '\.pyi?$'
+exclude = '''
+(
+    \.git
+  | \.tox
+  | \.venv
+  | _build
+  | build
+  | dist
+  | \.eggs
+  | _pb2(_grpc)?\.py
+)
+'''
