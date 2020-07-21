@@ -3,7 +3,7 @@ ROOT_DIR                        := $(patsubst %/,%,$(dir $(MAKEFILE_PATH)))
 
 TESTS_DIR                       ?= $(ROOT_DIR)/tests
 
-PROTO_PATH						?= $(ROOT_DIR)/vendor/github.com/openconfig/gnmi/proto
+PROTO_PATH                      ?= $(ROOT_DIR)/vendor/github.com/openconfig/gnmi/proto
 
 define USAGE
 
@@ -30,17 +30,17 @@ define command_check
 endef
 
 # custom wrapper to generate python source from gnmi proto files using default python
-define protoc-reference
-	@echo "Regenerating reference for $(1) ..."
+define protoc-legacy
+	@echo "Regenerating legacy python code for $(1) ..."
 	@{\
-		install -d $(ROOT_DIR)/src/gnmi/proto/_reference;\
+		install -d $(ROOT_DIR)/src/gnmi/proto/_legacy;\
 		proto=$(1);\
 		src="$(PROTO_PATH)/$${proto}/$${proto}.proto";\
-		dst="src/gnmi/proto/_reference/$${proto}/$${proto}.proto";\
+		dst="src/gnmi/proto/_legacy/$${proto}/$${proto}.proto";\
 		install -D $${src} $${dst};\
 		touch $$(dirname $${dst}/__init__.py);\
-		sed -i s+'^option go_package = "github.com/openconfig/gnmi/proto'+'option go_package = "gnmi/proto/_reference'+g $${dst};\
-		sed -i s+'^import "github.com/openconfig/gnmi/proto'+'import "gnmi/proto/_reference'+g $${dst};\
+		sed -i s+'^option go_package = "github.com/openconfig/gnmi/proto'+'option go_package = "gnmi/proto/_legacy'+g $${dst};\
+		sed -i s+'^import "github.com/openconfig/gnmi/proto'+'import "gnmi/proto/_legacy'+g $${dst};\
 		poetry run python -m grpc.tools.protoc \
 			--proto_path="src/" \
 			--python_out=src/ \
@@ -85,14 +85,14 @@ update/vendor: | check/commands
 	@echo "Updating git submodules ..."
 	@git submodule update --init --recursive
 
-### update/proto/reference
-##### regenerate reference source from proto files
-.PHONY: update/proto/reference
-update/proto/reference:
-	$(call protoc-reference,gnmi_ext)
-	$(call protoc-reference,gnmi)
-	$(call protoc-reference,collector)
-	$(call protoc-reference,target)
+### update/proto/legacy
+##### regenerate legacy source from proto files
+.PHONY: update/proto/legacy
+update/proto/legacy:
+	$(call protoc-legacy,gnmi_ext)
+	$(call protoc-legacy,gnmi)
+	$(call protoc-legacy,collector)
+	$(call protoc-legacy,target)
 
 ### update/proto
 ##### regenerate source from proto files
@@ -109,5 +109,5 @@ update/proto:
 ### update
 ##### update vendored source and regenerate python source
 .PHONY: update
-update: | update/vendor update/proto
+update: | update/vendor update/proto update/proto/legacy
 	@echo "Update completed successfully"

@@ -232,4 +232,3 @@ fabric.properties
 .idea/httpRequests
 
 # Project specfics
-/src/gnmi/proto/_reference/
