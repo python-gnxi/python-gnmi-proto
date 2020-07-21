@@ -1,9 +1,18 @@
 MAKEFILE_PATH                   := $(abspath $(lastword $(MAKEFILE_LIST)))
 ROOT_DIR                        := $(patsubst %/,%,$(dir $(MAKEFILE_PATH)))
 
-TESTS_DIR                       ?= $(ROOT_DIR)/tests
+SRC_DIR                         := $(ROOT_DIR)/src
+TESTS_DIR                       := $(ROOT_DIR)/tests
+VENDOR_DIR                      := $(ROOT_DIR)/vendor
 
-PROTO_PATH                      ?= $(ROOT_DIR)/vendor/github.com/openconfig/gnmi/proto
+PROTO_PACKAGE                   ?= github.com/openconfig/gnmi/proto
+PROTO_PATH                      := $(VENDOR_DIR)/$(PROTO_PACKAGE)
+
+PACKAGE_BETTERPROTO             ?= gnmi/proto/_internal
+PACKAGE_BETTERPROTO_PATH        := $(SRC_DIR)/$(PACKAGE_BETTERPROTO)
+
+PACKAGE_LEGACY                  ?= gnmi/proto/_legacy
+PACKAGE_LEGACY_PATH             := $(SRC_DIR)/$(PACKAGE_LEGACY)
 
 define USAGE
 
@@ -33,18 +42,18 @@ endef
 define protoc-legacy
 	@echo "Regenerating legacy python code for $(1) ..."
 	@{\
-		install -d $(ROOT_DIR)/src/gnmi/proto/_legacy;\
+		install -d $(PACKAGE_LEGACY_PATH);\
 		proto=$(1);\
 		src="$(PROTO_PATH)/$${proto}/$${proto}.proto";\
-		dst="src/gnmi/proto/_legacy/$${proto}/$${proto}.proto";\
+		dst="$(PACKAGE_LEGACY_PATH)/$${proto}/$${proto}.proto";\
 		install -D $${src} $${dst};\
 		touch $$(dirname $${dst}/__init__.py);\
-		sed -i s+'^option go_package = "github.com/openconfig/gnmi/proto'+'option go_package = "gnmi/proto/_legacy'+g $${dst};\
-		sed -i s+'^import "github.com/openconfig/gnmi/proto'+'import "gnmi/proto/_legacy'+g $${dst};\
+		sed -i s+'^option go_package = "$(PROTO_PACKAGE)'+'option go_package = "$(PACKAGE_LEGACY)'+g $${dst};\
+		sed -i s+'^import "$(PROTO_PACKAGE)'+'import "$(PACKAGE_LEGACY)'+g $${dst};\
 		poetry run python -m grpc.tools.protoc \
-			--proto_path="src/" \
-			--python_out=src/ \
-			--grpc_python_out=src/ $${dst};\
+			--proto_path="$(SRC_DIR)/" \
+			--python_out=$(SRC_DIR)/ \
+			--grpc_python_out=$(SRC_DIR)/ $${dst};\
 	}
 endef
 
@@ -99,8 +108,8 @@ update/proto/legacy:
 .PHONY: update/proto
 update/proto:
 	@echo "Regenerating betterproto source ..."
-	@poetry run python -m grpc.tools.protoc --proto_path="$(ROOT_DIR)/vendor:." \
-		--python_betterproto_out=src/gnmi/proto/_internal \
+	@poetry run python -m grpc.tools.protoc --proto_path="$(VENDOR_DIR):$(ROOT_DIR)" \
+		--python_betterproto_out=$(PACKAGE_BETTERPROTO_PATH) \
 		$(PROTO_PATH)/gnmi/gnmi.proto \
 		$(PROTO_PATH)/gnmi_ext/gnmi_ext.proto \
 		$(PROTO_PATH)/collector/collector.proto \
