@@ -7,7 +7,7 @@ name = "gnmi-proto"
 version = "0.1.0a1"
 description = "A python package containing gnmi proto specification and generated python code."
 authors = ["Arun Babu Neelicattu <arun.neelicattu@gmail.com>"]
-license = "MIT"
+license = "APLv2"
 packages = [
     { include = "gnmi", from = "src" },
 ]
