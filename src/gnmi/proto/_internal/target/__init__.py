@@ -6,6 +6,8 @@ from typing import Dict, List
 
 import betterproto
 
+from .. import gnmi as _gnmi__
+
 
 @dataclass
 class Configuration(betterproto.Message):
@@ -18,7 +20,7 @@ class Configuration(betterproto.Message):
     # targets in the Configuration. The request must have at minimum a
     # SubscriptionList with a prefix containing origin and one or more
     # Subscriptions.  Only the STREAM mode is supported.
-    request: Dict[str, "_gnmi__.SubscribeRequest"] = betterproto.map_field(
+    request: Dict[str, _gnmi__.SubscribeRequest] = betterproto.map_field(
         1, betterproto.TYPE_STRING, betterproto.TYPE_MESSAGE
     )
     # Target is the full list of targets connected to by a caching gNMI
@@ -69,6 +71,3 @@ class Credentials(betterproto.Message):
     password: str = betterproto.string_field(2)
     # Password lookup ID.
     password_id: str = betterproto.string_field(3)
-
-
-from .. import gnmi as _gnmi__
