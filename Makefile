@@ -4,3 +4,18 @@ PROTOS                          ?= gnmi_ext/gnmi_ext gnmi/gnmi collector/collect
                                    target/target
 
 include Makefile.in
+
+### tests/integration/deps
+##### ensure integration test dependencies are available
+.PHONY: tests/integration/deps
+tests/integration/deps:
+	$(call command_check,go)
+	@{ type gnmi_target > /dev/null 2>&1 \
+		|| go install -v github.com/google/gnxi/gnmi_target; \
+	}
+
+### tests
+##### execute tests
+.PHONY: tests
+tests: | tests/integration/deps
+	@pytest tests/

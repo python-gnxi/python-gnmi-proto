@@ -9,6 +9,7 @@ version = "1.4.4"
 [[package]]
 category = "dev"
 description = "Atomic file writes."
+marker = "sys_platform == \"win32\""
 name = "atomicwrites"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
@@ -31,6 +32,7 @@ tests = ["coverage", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "zope.i
 [[package]]
 category = "main"
 description = "Backport of Python 3.7's datetime.fromisoformat"
+marker = "python_version < \"3.7\""
 name = "backports-datetime-fromisoformat"
 optional = false
 python-versions = "*"
@@ -46,11 +48,26 @@ version = "2.0.0b1"
 
 [package.dependencies]
 grpclib = ">=0.3.1,<0.4.0"
-backports-datetime-fromisoformat = {version = ">=1.0.0,<2.0.0", markers = "python_version < \"3.7\""}
-black = {version = ">=19.10b0,<20.0", optional = true, markers = "extra == \"compiler\""}
-dataclasses = {version = ">=0.7,<0.8", markers = "python_version >= \"3.6\" and python_version < \"3.7\""}
-jinja2 = {version = ">=2.11.2,<3.0.0", optional = true, markers = "extra == \"compiler\""}
-protobuf = {version = ">=3.12.2,<4.0.0", optional = true, markers = "extra == \"compiler\""}
+
+[package.dependencies.backports-datetime-fromisoformat]
+python = "<3.7"
+version = ">=1.0.0,<2.0.0"
+
+[package.dependencies.black]
+optional = true
+version = ">=19.10b0,<20.0"
+
+[package.dependencies.dataclasses]
+python = ">=3.6,<3.7"
+version = ">=0.7,<0.8"
+
+[package.dependencies.jinja2]
+optional = true
+version = ">=2.11.2,<3.0.0"
+
+[package.dependencies.protobuf]
+optional = true
+version = ">=3.12.2,<4.0.0"
 
 [package.extras]
 compiler = ["black (>=19.10b0,<20.0)", "jinja2 (>=2.11.2,<3.0.0)", "protobuf (>=3.12.2,<4.0.0)"]
@@ -86,6 +103,7 @@ version = "7.1.2"
 [[package]]
 category = "dev"
 description = "Cross-platform colored terminal text."
+marker = "sys_platform == \"win32\""
 name = "colorama"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
@@ -94,6 +112,7 @@ version = "0.4.3"
 [[package]]
 category = "main"
 description = "A backport of the dataclasses module for Python 3.6"
+marker = "python_version >= \"3.6\" and python_version < \"3.7\" or python_version < \"3.7\""
 name = "dataclasses"
 optional = false
 python-versions = ">=3.6, <3.7"
@@ -133,7 +152,10 @@ version = "0.3.2"
 [package.dependencies]
 h2 = "*"
 multidict = "*"
-dataclasses = {version = "*", markers = "python_version < \"3.7\""}
+
+[package.dependencies.dataclasses]
+python = "<3.7"
+version = "*"
 
 [[package]]
 category = "main"
@@ -166,6 +188,7 @@ version = "5.2.0"
 [[package]]
 category = "dev"
 description = "Read metadata from Python packages"
+marker = "python_version < \"3.8\""
 name = "importlib-metadata"
 optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
@@ -245,7 +268,9 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "0.13.1"
 
 [package.dependencies]
-importlib-metadata = {version = ">=0.12", markers = "python_version < \"3.8\""}
+[package.dependencies.importlib-metadata]
+python = "<3.8"
+version = ">=0.12"
 
 [package.extras]
 dev = ["pre-commit", "tox"]
@@ -259,6 +284,7 @@ python-versions = "*"
 version = "3.12.2"
 
 [package.dependencies]
+setuptools = "*"
 six = ">=1.9"
 
 [[package]]
@@ -286,15 +312,18 @@ python-versions = ">=3.5"
 version = "5.4.3"
 
 [package.dependencies]
+atomicwrites = ">=1.0"
 attrs = ">=17.4.0"
+colorama = "*"
 more-itertools = ">=4.0.0"
 packaging = "*"
 pluggy = ">=0.12,<1.0"
 py = ">=1.5.0"
 wcwidth = "*"
-atomicwrites = {version = ">=1.0", markers = "sys_platform == \"win32\""}
-colorama = {version = "*", markers = "sys_platform == \"win32\""}
-importlib-metadata = {version = ">=0.12", markers = "python_version < \"3.8\""}
+
+[package.dependencies.importlib-metadata]
+python = "<3.8"
+version = ">=0.12"
 
 [package.extras]
 checkqa-mypy = ["mypy (v0.761)"]
@@ -302,14 +331,17 @@ testing = ["argcomplete", "hypothesis (>=3.56)", "mock", "nose", "requests", "xm
 
 [[package]]
 category = "dev"
-description = "pytest plugin for grpc"
-name = "pytest-grpc"
+description = "Pytest support for asyncio."
+name = "pytest-asyncio"
 optional = false
-python-versions = "*"
-version = "0.8.0"
+python-versions = ">= 3.5"
+version = "0.12.0"
 
 [package.dependencies]
-pytest = ">=3.6.0"
+pytest = ">=5.4.0"
+
+[package.extras]
+testing = ["async_generator (>=1.3)", "coverage", "hypothesis (>=5.7.1)"]
 
 [[package]]
 category = "dev"
@@ -354,6 +386,7 @@ version = "0.2.5"
 [[package]]
 category = "dev"
 description = "Backport of pathlib-compatible object wrapper for zip files"
+marker = "python_version < \"3.8\""
 name = "zipp"
 optional = false
 python-versions = ">=3.6"
@@ -364,7 +397,8 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "a1ab3d6fd7b93e58181bb45ffa0206fd6434a79fafefcbb2fe05b2d124259cb2"
+content-hash = "674ac310325dcf65122a3d6c9fdc79fa510a23ce10a56a6bf663ca4def47ac13"
+lock-version = "1.0"
 python-versions = "^3.6"
 
 [metadata.files]
@@ -594,9 +628,8 @@ pytest = [
     {file = "pytest-5.4.3-py3-none-any.whl", hash = "sha256:5c0db86b698e8f170ba4582a492248919255fcd4c79b1ee64ace34301fb589a1"},
     {file = "pytest-5.4.3.tar.gz", hash = "sha256:7979331bfcba207414f5e1263b5a0f8f521d0f457318836a7355531ed1a4c7d8"},
 ]
-pytest-grpc = [
-    {file = "pytest-grpc-0.8.0.tar.gz", hash = "sha256:0bd2683ffd34199444d707c0ab01970b22e0afbba6cb1ddb6d578c85ebfe09bd"},
-    {file = "pytest_grpc-0.8.0-py3-none-any.whl", hash = "sha256:5b062cf498e59995e84b3051da76f7bcff8cfe307927869f7bdc27ab967eee35"},
+pytest-asyncio = [
+    {file = "pytest-asyncio-0.12.0.tar.gz", hash = "sha256:475bd2f3dc0bc11d2463656b3cbaafdbec5a47b47508ea0b329ee693040eebd2"},
 ]
 regex = [
     {file = "regex-2020.7.14-cp27-cp27m-win32.whl", hash = "sha256:e46d13f38cfcbb79bfdb2964b0fe12561fe633caf964a77a5f8d4e45fe5d2ef7"},
