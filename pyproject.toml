@@ -12,6 +12,8 @@ packages = [
     { include = "gnmi", from = "src" },
 ]
 readme = "README.md"
+homepage = "https://github.com/python-gnxi"
+repository = "https://github.com/python-gnxi/python-gnmi-proto"
 classifiers = [
     "Development Status :: 2 - Pre-Alpha",
     "Topic :: Software Development",
