@@ -1,0 +1,25 @@
+repos:
+  - repo: https://github.com/psf/black
+    rev: 19.10b0
+    hooks:
+      - id: black
+        exclude: &exclude |
+          (?x)(
+              ^src/gnmi/proto/_internal/.*
+              | ^src/gnmi/proto/_legacy/.*
+          )
+
+  - repo: https://gitlab.com/pycqa/flake8
+    rev: 3.8.3
+    hooks:
+      - id: flake8
+        exclude: *exclude
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.1.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: *exclude
+      - id: end-of-file-fixer
+        exclude: *exclude
+      - id: debug-statements
