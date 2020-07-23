@@ -18,4 +18,4 @@ tests/integration/deps:
 ##### execute tests
 .PHONY: tests
 tests: | tests/integration/deps
-	@pytest tests/
+	@poetry run pytest tests/
