@@ -17,7 +17,7 @@ async def test_integration_permission_denied(service_unauthenticated):
 
 async def test_integration_incorrect_credentials(channel):
     service = gnmi.proto.gNMIStub(
-        channel, metadata={"username": "username", "password": "password",}
+        channel, metadata={"username": "username", "password": "password"}
     )
     with pytest.raises(grpclib.exceptions.GRPCError) as e:
         await service.get()
