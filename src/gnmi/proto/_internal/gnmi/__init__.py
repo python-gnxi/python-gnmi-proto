@@ -7,6 +7,9 @@ from typing import AsyncIterable, AsyncIterator, Dict, Iterable, List, Optional,
 import betterproto
 import grpclib
 
+from .. import gnmi_ext as _gnmi_ext__
+import betterproto.lib.google.protobuf as betterproto_lib_google_protobuf
+
 
 class Encoding(betterproto.Enum):
     """
@@ -107,7 +110,7 @@ class TypedValue(betterproto.Message):
     float_val: float = betterproto.float_field(6, group="value")
     decimal_val: "Decimal64" = betterproto.message_field(7, group="value")
     leaflist_val: "ScalarArray" = betterproto.message_field(8, group="value")
-    any_val: "betterproto_lib_google_protobuf.Any" = betterproto.message_field(
+    any_val: betterproto_lib_google_protobuf.Any = betterproto.message_field(
         9, group="value"
     )
     json_val: bytes = betterproto.bytes_field(10, group="value")
@@ -173,7 +176,7 @@ class Error(betterproto.Message):
 
     code: int = betterproto.uint32_field(1)
     message: str = betterproto.string_field(2)
-    data: "betterproto_lib_google_protobuf.Any" = betterproto.message_field(3)
+    data: betterproto_lib_google_protobuf.Any = betterproto.message_field(3)
 
 
 @dataclass
@@ -214,7 +217,7 @@ class SubscribeRequest(betterproto.Message):
     aliases: "AliasList" = betterproto.message_field(4, group="request")
     # Extension messages associated with the SubscribeRequest. See the gNMI
     # extension specification for further definition.
-    extension: List["_gnmi_ext__.Extension"] = betterproto.message_field(5)
+    extension: List[_gnmi_ext__.Extension] = betterproto.message_field(5)
 
 
 @dataclass
@@ -246,7 +249,7 @@ class SubscribeResponse(betterproto.Message):
     error: "Error" = betterproto.message_field(4, group="response")
     # Extension messages associated with the SubscribeResponse. See the gNMI
     # extension specification for further definition.
-    extension: List["_gnmi_ext__.Extension"] = betterproto.message_field(5)
+    extension: List[_gnmi_ext__.Extension] = betterproto.message_field(5)
 
 
 @dataclass
@@ -356,7 +359,7 @@ class SetRequest(betterproto.Message):
     update: List["Update"] = betterproto.message_field(4)
     # Extension messages associated with the SetRequest. See the gNMI extension
     # specification for further definition.
-    extension: List["_gnmi_ext__.Extension"] = betterproto.message_field(5)
+    extension: List[_gnmi_ext__.Extension] = betterproto.message_field(5)
 
 
 @dataclass
@@ -379,7 +382,7 @@ class SetResponse(betterproto.Message):
     timestamp: int = betterproto.int64_field(4)
     # Extension messages associated with the SetResponse. See the gNMI extension
     # specification for further definition.
-    extension: List["_gnmi_ext__.Extension"] = betterproto.message_field(5)
+    extension: List[_gnmi_ext__.Extension] = betterproto.message_field(5)
 
 
 @dataclass
@@ -417,7 +420,7 @@ class GetRequest(betterproto.Message):
     use_models: List["ModelData"] = betterproto.message_field(6)
     # Extension messages associated with the GetRequest. See the gNMI extension
     # specification for further definition.
-    extension: List["_gnmi_ext__.Extension"] = betterproto.message_field(7)
+    extension: List[_gnmi_ext__.Extension] = betterproto.message_field(7)
 
 
 @dataclass
@@ -433,7 +436,7 @@ class GetResponse(betterproto.Message):
     error: "Error" = betterproto.message_field(2)
     # Extension messages associated with the GetResponse. See the gNMI extension
     # specification for further definition.
-    extension: List["_gnmi_ext__.Extension"] = betterproto.message_field(3)
+    extension: List[_gnmi_ext__.Extension] = betterproto.message_field(3)
 
 
 @dataclass
@@ -446,7 +449,7 @@ class CapabilityRequest(betterproto.Message):
 
     # Extension messages associated with the CapabilityRequest. See the gNMI
     # extension specification for further definition.
-    extension: List["_gnmi_ext__.Extension"] = betterproto.message_field(1)
+    extension: List[_gnmi_ext__.Extension] = betterproto.message_field(1)
 
 
 @dataclass
@@ -462,7 +465,7 @@ class CapabilityResponse(betterproto.Message):
     g_nmi_version: str = betterproto.string_field(3)
     # Extension messages associated with the CapabilityResponse. See the gNMI
     # extension specification for further definition.
-    extension: List["_gnmi_ext__.Extension"] = betterproto.message_field(4)
+    extension: List[_gnmi_ext__.Extension] = betterproto.message_field(4)
 
 
 @dataclass
@@ -492,8 +495,8 @@ class Nil(betterproto.Message):
 
 class GNmiStub(betterproto.ServiceStub):
     async def capabilities(
-        self, *, extension: List["_gnmi_ext__.Extension"] = []
-    ) -> "CapabilityResponse":
+        self, *, extension: List[_gnmi_ext__.Extension] = []
+    ) -> CapabilityResponse:
         """
         Capabilities allows the client to retrieve the set of capabilities that
         is supported by the target. This allows the target to validate the
@@ -519,8 +522,8 @@ class GNmiStub(betterproto.ServiceStub):
         type: "GetRequestDataType" = 0,
         encoding: "Encoding" = 0,
         use_models: List["ModelData"] = [],
-        extension: List["_gnmi_ext__.Extension"] = [],
-    ) -> "GetResponse":
+        extension: List[_gnmi_ext__.Extension] = [],
+    ) -> GetResponse:
         """
         Retrieve a snapshot of data from the target. A Get RPC requests that
         the target snapshots a subset of the data tree as specified by the
@@ -550,8 +553,8 @@ class GNmiStub(betterproto.ServiceStub):
         delete: List["Path"] = [],
         replace: List["Update"] = [],
         update: List["Update"] = [],
-        extension: List["_gnmi_ext__.Extension"] = [],
-    ) -> "SetResponse":
+        extension: List[_gnmi_ext__.Extension] = [],
+    ) -> SetResponse:
         """
         Set allows the client to modify the state of data on the target. The
         paths to modified along with the new values that the client wishes to
@@ -577,7 +580,7 @@ class GNmiStub(betterproto.ServiceStub):
         request_iterator: Union[
             AsyncIterable["SubscribeRequest"], Iterable["SubscribeRequest"]
         ],
-    ) -> AsyncIterator["SubscribeResponse"]:
+    ) -> AsyncIterator[SubscribeResponse]:
         """
         Subscribe allows a client to request the target to send it values of
         particular paths within the data tree. These values may be streamed at
@@ -596,7 +599,7 @@ class GNmiStub(betterproto.ServiceStub):
 
 
 class CollectorStub(betterproto.ServiceStub):
-    async def reconnect(self, *, target: List[str] = []) -> "Nil":
+    async def reconnect(self, *, target: List[str] = []) -> Nil:
         """
         Reconnect requests that the existing connections for one or more
         specified targets will be stopped and new connections established.
@@ -606,7 +609,3 @@ class CollectorStub(betterproto.ServiceStub):
         request.target = target
 
         return await self._unary_unary("/gnmi.Collector/Reconnect", request, Nil)
-
-
-from .. import gnmi_ext as _gnmi_ext__
-import betterproto.lib.google.protobuf as betterproto_lib_google_protobuf
