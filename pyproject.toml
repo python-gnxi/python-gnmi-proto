@@ -11,6 +11,7 @@ license = "APLv2"
 packages = [
     { include = "gnmi", from = "src" },
 ]
+readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.6"
