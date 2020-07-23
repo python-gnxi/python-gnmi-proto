@@ -15,7 +15,7 @@ The default implementation makes use of the [betterproto](https://pypi.org/proje
 
 ## Example Usage
 ### Client
-The following code expects a server at `127.0.0.1:9339` with the [test configuration](tests/integration/fixtures/config.json). Refer to [gNMI Target Server](CONTRIBUTING.md#gnmi-target-server) section in [CONTRIBUTING.md](CONTRIBUTING.md) for information on how to set it up.
+The following code expects a server at `127.0.0.1:9339` with the [test configuration](https://github.com/python-gnxi/python-gnmi-proto/blob/master/tests/integration/fixtures/config.json). Refer to [gNMI Target Server](https://github.com/python-gnxi/python-gnmi-proto/blob/master/CONTRIBUTING.md#gnmi-target-server) section in [CONTRIBUTING.md](https://github.com/python-gnxi/python-gnmi-proto/blob/master/CONTRIBUTING.md) for information on how to set it up.
 
 #### Using betterproto and grpclib
 ```py  

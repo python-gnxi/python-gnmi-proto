@@ -1,4 +1,6 @@
 # Contribution Guide
+## Guidelines
+Be nice. Be respectful.
 
 ## Developer Documentation
 ### Regenerating Protobuf Source
@@ -16,22 +18,21 @@ correctly).
 
 #### Installation
 ```sh
-# install the shell binary  
 go get -u github.com/google/gnxi/gnmi_target
 go install -v github.com/google/gnxi/gnmi_target
 ```
+
 #### Sample Configuration
-You can use the configuration provided at [tests/integration/fixtures/config.json](tests/integration/fixtures/config.json) 
-or fetch it using curl.
+You can use the provided [sample configuration](tests/integration/fixtures/config.json). If you do not have a local copy 
+of the repository, fetch it using `curl`.
 
 ```sh
-# fetch test configuration from github
 curl -sLO https://raw.githubusercontent.com/python-gnxi/python-gnmi-proto/master/tests/integration/fixtures/config.json
 ```
 
+#### Run Server
 Once you have a configuration you can start the server like shown below.
 ```sh
-# run server
 gnmi_target \
     -bind_address ":9339" \
     -username admin \
