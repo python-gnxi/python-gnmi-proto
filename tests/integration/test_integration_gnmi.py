@@ -1,10 +1,10 @@
-import json
-
 import gnmi.proto
 import grpclib.client
 import pytest
 
 # noinspection SpellCheckingInspection
+from tests.integration.validation import validate_default_interfaces_get
+
 pytestmark = [pytest.mark.asyncio, pytest.mark.integration]
 
 
@@ -35,13 +35,4 @@ async def test_integration_get(service):
         path=[gnmi.proto.Path(elem=[gnmi.proto.PathElem(name="interfaces")])],
     )
     assert isinstance(response, gnmi.proto.GetResponse)
-    assert len(response.notification) == 1
-
-    notification = response.notification.pop()
-    assert len(notification.update) == 1
-
-    update = notification.update.pop()
-    assert update.val.json_val
-    assert json.loads(update.val.json_val.decode("utf-8")) == {
-        "interface": {"admin": {"config": {"name": "admin"}, "name": "admin"}}
-    }
+    validate_default_interfaces_get(response)
