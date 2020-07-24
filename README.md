@@ -33,7 +33,7 @@ import grpclib.client
 async def main():
     channel = grpclib.client.Channel(host="127.0.0.1", port=9339, ssl=None)
     service = gnmi.proto.gNMIStub(
-        channel, metadata={"username": "admin", "password": "secret",},
+        channel, metadata={"username": "admin", "password": "secret"}
     )
     
     response = await service.capabilities()
