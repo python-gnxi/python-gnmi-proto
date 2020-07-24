@@ -1,12 +1,13 @@
 import json
-from typing import Union
+from typing import Any, Dict, Union
 
 import gnmi.proto
 import gnmi.proto.legacy
 
 
-def validate_default_interfaces_get(
-    response: Union[gnmi.proto.GetResponse, gnmi.proto.legacy.GetResponse]
+def validate_response_get(
+    response: Union[gnmi.proto.GetResponse, gnmi.proto.legacy.GetResponse],
+    value: Union[str, Dict[str, Any]],
 ):
     assert len(response.notification) == 1
 
@@ -14,7 +15,18 @@ def validate_default_interfaces_get(
     assert len(notification.update) == 1
 
     update = notification.update.pop()
-    assert update.val.json_val
-    assert json.loads(update.val.json_val.decode("utf-8")) == {
-        "interface": {"admin": {"config": {"name": "admin"}, "name": "admin"}}
-    }
+
+    if isinstance(value, str):
+        assert update.val.string_val == value
+    else:
+        assert update.val.json_val
+        assert json.loads(update.val.json_val.decode("utf-8")) == value
+
+
+def validate_default_interfaces_get(
+    response: Union[gnmi.proto.GetResponse, gnmi.proto.legacy.GetResponse],
+):
+    validate_response_get(
+        response=response,
+        value={"interface": {"admin": {"config": {"name": "admin"}, "name": "admin"}}},
+    )
