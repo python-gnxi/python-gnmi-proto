@@ -24,12 +24,16 @@ class TargetConfig:
             f":{self.port}",
             "-notls",
             "-logtostderr",
-            "-username",
-            self.username,
-            "-password",
-            self.password,
             *self.options,
         ]
+
+        if self.username:
+            args.append("-username")
+            args.append(self.username)
+
+        if self.password:
+            args.append("-password")
+            args.append(self.password)
 
         if self.file:
             args.append("-config")
