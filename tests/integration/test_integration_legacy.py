@@ -7,10 +7,10 @@ import grpc
 import pytest
 from grpc._channel import _InactiveRpcError  # noqa
 
+from tests.integration.path import create_legacy_path
 from tests.integration.validation import (
     validate_default_interfaces_get,
     validate_response_get,
-    validate_response_does_not_contain,
 )
 
 pytestmark = [pytest.mark.integration]
@@ -30,7 +30,7 @@ def test_integration_legacy_capabilities(service_legacy):
 
 def test_integration__legacy_get(service_legacy, metadata_legacy):
     response = service_legacy.Get(
-        gnmi.proto.legacy.GetRequest(path=[_create_path("interfaces")],),
+        gnmi.proto.legacy.GetRequest(path=[create_legacy_path("interfaces")],),
         metadata=metadata_legacy,
     )
 
@@ -52,7 +52,9 @@ def _update(
 
 def test_integration_legacy_update_set_string(service_legacy, metadata_legacy):
     new_password = str(uuid.uuid4())
-    path = _create_path("system/aaa/authentication/admin-user/config/admin-password")
+    path = create_legacy_path(
+        "system/aaa/authentication/admin-user/config/admin-password"
+    )
     update = gnmi.proto.legacy.Update(
         path=path, val=gnmi.proto.legacy.TypedValue(string_val=new_password)
     )
@@ -66,7 +68,7 @@ def test_integration_legacy_update_set_string(service_legacy, metadata_legacy):
 
 def test_integration_legacy_update_set_json(service_legacy, metadata_legacy):
     config = {"config": {"timezone-name": "Europe/Berlin"}}
-    path = _create_path("system/clock")
+    path = create_legacy_path("system/clock")
     update = gnmi.proto.legacy.Update(
         path=path,
         val=gnmi.proto.legacy.TypedValue(json_ietf_val=json.dumps(config).encode()),
@@ -80,19 +82,14 @@ def test_integration_legacy_update_set_json(service_legacy, metadata_legacy):
 
 
 def test_integration_legacy_delete(service_legacy, metadata_legacy):
-    path = _create_path("system/config/hostname")
+    path = create_legacy_path("system/clock/config/timezone-name")
 
     service_legacy.Set(
         gnmi.proto.legacy.SetRequest(delete=[path]), metadata=metadata_legacy
     )
 
     response = service_legacy.Get(
-        gnmi.proto.legacy.GetRequest(path=[_create_path("system/config")],),
+        gnmi.proto.legacy.GetRequest(path=[create_legacy_path("system/clock")],),
         metadata=metadata_legacy,
     )
-    validate_response_does_not_contain(response=response, value="hostname")
-
-
-def _create_path(path) -> gnmi.proto.legacy.Path:
-    elements = [gnmi.proto.legacy.PathElem(name=e) for e in path.split("/")]
-    return gnmi.proto.legacy.Path(elem=elements)
+    validate_response_get(response=response, value={})

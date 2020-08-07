@@ -30,15 +30,3 @@ def validate_default_interfaces_get(
         response=response,
         value={"interface": {"admin": {"config": {"name": "admin"}, "name": "admin"}}},
     )
-
-
-def validate_response_does_not_contain(
-    response: Union[gnmi.proto.GetResponse, gnmi.proto.legacy.GetResponse], value: str
-):
-    assert len(response.notification) == 1
-
-    notification = response.notification.pop()
-    assert len(notification.update) == 1
-
-    update = notification.update.pop()
-    assert value not in update.val.json_val.decode("utf-8")
