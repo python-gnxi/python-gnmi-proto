@@ -6,6 +6,7 @@ import grpclib.client
 import pytest
 
 # noinspection SpellCheckingInspection
+from tests.integration.path import create_path
 from tests.integration.validation import (
     validate_default_interfaces_get,
     validate_response_get,
@@ -46,16 +47,7 @@ async def test_integration_get(service):
 
 async def test_integration_update_set_string(service):
     new_password = str(uuid.uuid4())
-    path = gnmi.proto.Path(
-        elem=[
-            gnmi.proto.PathElem(name="system"),
-            gnmi.proto.PathElem(name="aaa"),
-            gnmi.proto.PathElem(name="authentication"),
-            gnmi.proto.PathElem(name="admin-user"),
-            gnmi.proto.PathElem(name="config"),
-            gnmi.proto.PathElem(name="admin-password"),
-        ],
-    )
+    path = create_path("system/aaa/authentication/admin-user/config/admin-password")
     update = gnmi.proto.Update(
         path=path, val=gnmi.proto.TypedValue(string_val=new_password)
     )
@@ -68,9 +60,7 @@ async def test_integration_update_set_string(service):
 
 async def test_integration_update_set_json(service):
     config = {"config": {"timezone-name": "Europe/Berlin"}}
-    path = gnmi.proto.Path(
-        elem=[gnmi.proto.PathElem(name="system"), gnmi.proto.PathElem(name="clock")],
-    )
+    path = create_path("system/clock")
     update = gnmi.proto.Update(
         path=path, val=gnmi.proto.TypedValue(json_ietf_val=json.dumps(config).encode())
     )
@@ -79,3 +69,12 @@ async def test_integration_update_set_json(service):
 
     response = await service.get(path=path,)
     validate_response_get(response=response, value=config)
+
+
+async def test_integration_delete(service):
+    path = create_path("system/clock/config/timezone-name")
+
+    await service.set(delete=[path])
+
+    response = await service.get(path=create_path("system/clock"),)
+    validate_response_get(response=response, value={})
