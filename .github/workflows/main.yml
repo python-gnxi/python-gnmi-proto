@@ -33,7 +33,6 @@ jobs:
         shell: bash
         run: |
           pip install poetry
-          echo "::set-env name=PATH::$HOME/.poetry/bin:$PATH"
 
       - name: Upgrade pip
         shell: bash
@@ -64,7 +63,7 @@ jobs:
         run: |
           go get -u github.com/google/gnxi/gnmi_target
           go install -v github.com/google/gnxi/gnmi_target
-          echo "::set-env name=PATH::`go env GOPATH`/bin:$PATH"
+          echo `go env GOPATH`/bin >> $GITHUB_PATH
 
       - name: Run tests
         shell: bash
