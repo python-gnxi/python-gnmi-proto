@@ -12,8 +12,8 @@ make update
 ```
 
 ### gNMI Target Server
-You can use the [google/gnxi/gnmi_target](https://github.com/google/gnxi/tree/master/gnmi_target) to test the client 
-code. You can set this up using the the following commands (assuming you have ``golang` and `GOPATH` configured 
+You can use the [google/gnxi/gnmi_target](https://github.com/google/gnxi/tree/master/gnmi_target) to test the client
+code. You can set this up using the the following commands (assuming you have ``golang` and `GOPATH` configured
 correctly).
 
 #### Installation
@@ -23,7 +23,7 @@ go install -v github.com/google/gnxi/gnmi_target
 ```
 
 #### Sample Configuration
-You can use the provided [sample configuration](tests/integration/fixtures/config.json). If you do not have a local copy 
+You can use the provided [sample configuration](tests/integration/fixtures/config.json). If you do not have a local copy
 of the repository, fetch it using `curl`.
 
 ```sh
