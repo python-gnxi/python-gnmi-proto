@@ -56,6 +56,7 @@ class Collector(object):
             options=(),
             channel_credentials=None,
             call_credentials=None,
+            insecure=False,
             compression=None,
             wait_for_ready=None,
             timeout=None,
@@ -64,4 +65,4 @@ class Collector(object):
             gnmi_dot_proto_dot___legacy_dot_collector_dot_collector__pb2.ReconnectRequest.SerializeToString,
             gnmi_dot_proto_dot___legacy_dot_collector_dot_collector__pb2.Nil.FromString,
             options, channel_credentials,
-            call_credentials, compression, wait_for_ready, timeout, metadata)
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

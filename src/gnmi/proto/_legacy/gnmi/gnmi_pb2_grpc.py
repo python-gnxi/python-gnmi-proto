@@ -122,6 +122,7 @@ class gNMI(object):
             options=(),
             channel_credentials=None,
             call_credentials=None,
+            insecure=False,
             compression=None,
             wait_for_ready=None,
             timeout=None,
@@ -130,7 +131,7 @@ class gNMI(object):
             gnmi_dot_proto_dot___legacy_dot_gnmi_dot_gnmi__pb2.CapabilityRequest.SerializeToString,
             gnmi_dot_proto_dot___legacy_dot_gnmi_dot_gnmi__pb2.CapabilityResponse.FromString,
             options, channel_credentials,
-            call_credentials, compression, wait_for_ready, timeout, metadata)
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
     def Get(request,
@@ -138,6 +139,7 @@ class gNMI(object):
             options=(),
             channel_credentials=None,
             call_credentials=None,
+            insecure=False,
             compression=None,
             wait_for_ready=None,
             timeout=None,
@@ -146,7 +148,7 @@ class gNMI(object):
             gnmi_dot_proto_dot___legacy_dot_gnmi_dot_gnmi__pb2.GetRequest.SerializeToString,
             gnmi_dot_proto_dot___legacy_dot_gnmi_dot_gnmi__pb2.GetResponse.FromString,
             options, channel_credentials,
-            call_credentials, compression, wait_for_ready, timeout, metadata)
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
     def Set(request,
@@ -154,6 +156,7 @@ class gNMI(object):
             options=(),
             channel_credentials=None,
             call_credentials=None,
+            insecure=False,
             compression=None,
             wait_for_ready=None,
             timeout=None,
@@ -162,7 +165,7 @@ class gNMI(object):
             gnmi_dot_proto_dot___legacy_dot_gnmi_dot_gnmi__pb2.SetRequest.SerializeToString,
             gnmi_dot_proto_dot___legacy_dot_gnmi_dot_gnmi__pb2.SetResponse.FromString,
             options, channel_credentials,
-            call_credentials, compression, wait_for_ready, timeout, metadata)
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
     def Subscribe(request_iterator,
@@ -170,6 +173,7 @@ class gNMI(object):
             options=(),
             channel_credentials=None,
             call_credentials=None,
+            insecure=False,
             compression=None,
             wait_for_ready=None,
             timeout=None,
@@ -178,4 +182,4 @@ class gNMI(object):
             gnmi_dot_proto_dot___legacy_dot_gnmi_dot_gnmi__pb2.SubscribeRequest.SerializeToString,
             gnmi_dot_proto_dot___legacy_dot_gnmi_dot_gnmi__pb2.SubscribeResponse.FromString,
             options, channel_credentials,
-            call_credentials, compression, wait_for_ready, timeout, metadata)
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

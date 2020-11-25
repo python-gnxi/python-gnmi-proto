@@ -18,7 +18,7 @@ class ExtensionId(betterproto.Enum):
     EID_EXPERIMENTAL = 999
 
 
-@dataclass
+@dataclass(eq=False, repr=False)
 class Extension(betterproto.Message):
     """The Extension message contains a single gNMI extension."""
 
@@ -26,8 +26,11 @@ class Extension(betterproto.Message):
     # Well known extensions.
     master_arbitration: "MasterArbitration" = betterproto.message_field(2, group="ext")
 
+    def __post_init__(self) -> None:
+        super().__post_init__()
 
-@dataclass
+
+@dataclass(eq=False, repr=False)
 class RegisteredExtension(betterproto.Message):
     """
     The RegisteredExtension message defines an extension which is defined
@@ -37,8 +40,11 @@ class RegisteredExtension(betterproto.Message):
     id: "ExtensionId" = betterproto.enum_field(1)
     msg: bytes = betterproto.bytes_field(2)
 
+    def __post_init__(self) -> None:
+        super().__post_init__()
 
-@dataclass
+
+@dataclass(eq=False, repr=False)
 class MasterArbitration(betterproto.Message):
     """
     MasterArbitration is used to select the master among multiple gNMI clients
@@ -51,19 +57,28 @@ class MasterArbitration(betterproto.Message):
     role: "Role" = betterproto.message_field(1)
     election_id: "Uint128" = betterproto.message_field(2)
 
+    def __post_init__(self) -> None:
+        super().__post_init__()
 
-@dataclass
+
+@dataclass(eq=False, repr=False)
 class Uint128(betterproto.Message):
     """Representation of unsigned 128-bit integer."""
 
     high: int = betterproto.uint64_field(1)
     low: int = betterproto.uint64_field(2)
 
+    def __post_init__(self) -> None:
+        super().__post_init__()
 
-@dataclass
+
+@dataclass(eq=False, repr=False)
 class Role(betterproto.Message):
     """
     There can be one master for each role. The role is identified by its id.
     """
 
     id: str = betterproto.string_field(1)
+
+    def __post_init__(self) -> None:
+        super().__post_init__()
