@@ -38,7 +38,7 @@ python-versions = "*"
 
 [[package]]
 name = "betterproto"
-version = "2.0.0b1"
+version = "2.0.0b2"
 description = "A better Protobuf / gRPC generator & library"
 category = "main"
 optional = false
@@ -46,14 +46,14 @@ python-versions = ">=3.6,<4.0"
 
 [package.dependencies]
 backports-datetime-fromisoformat = {version = ">=1.0.0,<2.0.0", markers = "python_version < \"3.7\""}
-black = {version = ">=19.10b0,<20.0", optional = true, markers = "extra == \"compiler\""}
+black = {version = ">=19.3b0", optional = true, markers = "extra == \"compiler\""}
 dataclasses = {version = ">=0.7,<0.8", markers = "python_version >= \"3.6\" and python_version < \"3.7\""}
-grpclib = ">=0.3.1,<0.4.0"
+grpclib = ">=0.4.1,<0.5.0"
 jinja2 = {version = ">=2.11.2,<3.0.0", optional = true, markers = "extra == \"compiler\""}
 protobuf = {version = ">=3.12.2,<4.0.0", optional = true, markers = "extra == \"compiler\""}
 
 [package.extras]
-compiler = ["black (>=19.10b0,<20.0)", "jinja2 (>=2.11.2,<3.0.0)", "protobuf (>=3.12.2,<4.0.0)"]
+compiler = ["black (>=19.3b0)", "jinja2 (>=2.11.2,<3.0.0)", "protobuf (>=3.12.2,<4.0.0)"]
 
 [[package]]
 name = "black"
@@ -151,7 +151,7 @@ protobuf = ">=3.5.0.post1,<4.0dev"
 
 [[package]]
 name = "grpclib"
-version = "0.3.2"
+version = "0.4.1"
 description = "Pure-Python gRPC implementation for asyncio"
 category = "main"
 optional = false
@@ -159,7 +159,7 @@ python-versions = ">=3.6"
 
 [package.dependencies]
 dataclasses = {version = "*", markers = "python_version < \"3.7\""}
-h2 = "*"
+h2 = ">=3.1.0,<5"
 multidict = "*"
 
 [[package]]
@@ -203,18 +203,18 @@ license = ["editdistance"]
 
 [[package]]
 name = "importlib-metadata"
-version = "2.0.0"
+version = "3.1.0"
 description = "Read metadata from Python packages"
 category = "dev"
 optional = false
-python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
+python-versions = ">=3.6"
 
 [package.dependencies]
 zipp = ">=0.5"
 
 [package.extras]
 docs = ["sphinx", "rst.linker"]
-testing = ["packaging", "pep517", "importlib-resources (>=1.3)"]
+testing = ["packaging", "pep517", "unittest2", "importlib-resources (>=1.3)"]
 
 [[package]]
 name = "importlib-resources"
@@ -434,7 +434,7 @@ python-versions = "*"
 
 [[package]]
 name = "virtualenv"
-version = "20.2.0"
+version = "20.2.1"
 description = "Virtual Python Environment builder"
 category = "dev"
 optional = false
@@ -444,7 +444,7 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,>=2.7"
 appdirs = ">=1.4.3,<2"
 distlib = ">=0.3.1,<1"
 filelock = ">=3.0.0,<4"
-importlib-metadata = {version = ">=0.12,<3", markers = "python_version < \"3.8\""}
+importlib-metadata = {version = ">=0.12", markers = "python_version < \"3.8\""}
 importlib-resources = {version = ">=1.0", markers = "python_version < \"3.7\""}
 six = ">=1.9.0,<2"
 
@@ -475,7 +475,7 @@ testing = ["pytest (>=3.5,!=3.7.3)", "pytest-checkdocs (>=1.2.3)", "pytest-flake
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.6"
-content-hash = "911880e518ceddb3e5869830cf1a37a16a95b2d862d9d17bcb18dcab6ebd5558"
+content-hash = "80d3f2821e0ade00c385bc7f524d8baf9f897a2c025f371cb163956558b28ce3"
 
 [metadata.files]
 appdirs = [
@@ -494,8 +494,8 @@ backports-datetime-fromisoformat = [
     {file = "backports-datetime-fromisoformat-1.0.0.tar.gz", hash = "sha256:9577a2a9486cd7383a5f58b23bb8e81cf0821dbbc0eb7c87d3fa198c1df40f5c"},
 ]
 betterproto = [
-    {file = "betterproto-2.0.0b1-py3-none-any.whl", hash = "sha256:eef30c9862589c509f7aebcc683dd465df227b751f826e148e3306e12dacd4c5"},
-    {file = "betterproto-2.0.0b1.tar.gz", hash = "sha256:62044153ac3ecdd4b7b37ef44f12d490bc5403d7693944e5b8e06bfa415108cb"},
+    {file = "betterproto-2.0.0b2-py3-none-any.whl", hash = "sha256:3a701520909fa9137c33996da728c7af1762f3c7b43d9e6f4e5bdeb03bd4eeb9"},
+    {file = "betterproto-2.0.0b2.tar.gz", hash = "sha256:7c1dbc10ccab6bf62bb5075d42a44f2e912d2817aaf16aa22ae508a71ce71677"},
 ]
 black = [
     {file = "black-19.10b0-py36-none-any.whl", hash = "sha256:1b30e59be925fafc1ee4565e5e08abef6b03fe455102883820fe5ee2e4734e0b"},
@@ -620,7 +620,7 @@ grpcio-tools = [
     {file = "grpcio_tools-1.33.2-cp39-cp39-win_amd64.whl", hash = "sha256:b68ce929acb8c392b83c49257e18f03d73ca3af408bfd5f7e78fe351c384c008"},
 ]
 grpclib = [
-    {file = "grpclib-0.3.2.tar.gz", hash = "sha256:d1e76c56f5b9cf268942b93d1ef2046e3983c35ed3e6b592f02f1d9f0db36a81"},
+    {file = "grpclib-0.4.1.tar.gz", hash = "sha256:8c0021cd038634c268249e4cd168d9f3570e66ceceec1c9416094b788ebc8372"},
 ]
 h2 = [
     {file = "h2-3.2.0-py2.py3-none-any.whl", hash = "sha256:61e0f6601fa709f35cdb730863b4e5ec7ad449792add80d1410d4174ed139af5"},
@@ -639,8 +639,8 @@ identify = [
     {file = "identify-1.5.10.tar.gz", hash = "sha256:943cd299ac7f5715fcb3f684e2fc1594c1e0f22a90d15398e5888143bd4144b5"},
 ]
 importlib-metadata = [
-    {file = "importlib_metadata-2.0.0-py2.py3-none-any.whl", hash = "sha256:cefa1a2f919b866c5beb7c9f7b0ebb4061f30a8a9bf16d609b000e2dfaceb9c3"},
-    {file = "importlib_metadata-2.0.0.tar.gz", hash = "sha256:77a540690e24b0305878c37ffd421785a6f7e53c8b5720d211b211de8d0e95da"},
+    {file = "importlib_metadata-3.1.0-py2.py3-none-any.whl", hash = "sha256:590690d61efdd716ff82c39ca9a9d4209252adfe288a4b5721181050acbd4175"},
+    {file = "importlib_metadata-3.1.0.tar.gz", hash = "sha256:d9b8a46a0885337627a6430db287176970fff18ad421becec1d64cfc763c2099"},
 ]
 importlib-resources = [
     {file = "importlib_resources-3.3.0-py2.py3-none-any.whl", hash = "sha256:a3d34a8464ce1d5d7c92b0ea4e921e696d86f2aa212e684451cb1482c8d84ed5"},
@@ -871,8 +871,8 @@ typed-ast = [
     {file = "typed_ast-1.4.1.tar.gz", hash = "sha256:8c8aaad94455178e3187ab22c8b01a3837f8ee50e09cf31f1ba129eb293ec30b"},
 ]
 virtualenv = [
-    {file = "virtualenv-20.2.0-py2.py3-none-any.whl", hash = "sha256:6af42359fbb33a6c7eab4d3246524b96fd9d8e07e7141b7a65998f96e28b2c57"},
-    {file = "virtualenv-20.2.0.tar.gz", hash = "sha256:fd4147c5ba3f694e2e4fc3c767407dc2226899623bb9b49c2f15637c2ee335b3"},
+    {file = "virtualenv-20.2.1-py2.py3-none-any.whl", hash = "sha256:07cff122e9d343140366055f31be4dcd61fd598c69d11cd33a9d9c8df4546dd7"},
+    {file = "virtualenv-20.2.1.tar.gz", hash = "sha256:e0aac7525e880a429764cefd3aaaff54afb5d9f25c82627563603f5d7de5a6e5"},
 ]
 wcwidth = [
     {file = "wcwidth-0.2.5-py2.py3-none-any.whl", hash = "sha256:beb4802a9cebb9144e99086eff703a642a13d6a0052920003a230f3294bbe784"},

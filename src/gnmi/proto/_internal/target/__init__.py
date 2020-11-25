@@ -6,10 +6,8 @@ from typing import Dict, List
 
 import betterproto
 
-from .. import gnmi as _gnmi__
 
-
-@dataclass
+@dataclass(eq=False, repr=False)
 class Configuration(betterproto.Message):
     """
     Configuration holds all information necessary for a caching gNMI collector
@@ -20,7 +18,7 @@ class Configuration(betterproto.Message):
     # targets in the Configuration. The request must have at minimum a
     # SubscriptionList with a prefix containing origin and one or more
     # Subscriptions.  Only the STREAM mode is supported.
-    request: Dict[str, _gnmi__.SubscribeRequest] = betterproto.map_field(
+    request: Dict[str, "_gnmi__.SubscribeRequest"] = betterproto.map_field(
         1, betterproto.TYPE_STRING, betterproto.TYPE_MESSAGE
     )
     # Target is the full list of targets connected to by a caching gNMI
@@ -39,8 +37,11 @@ class Configuration(betterproto.Message):
     # environment and any custom encoding.
     revision: int = betterproto.int64_field(536870911)
 
+    def __post_init__(self) -> None:
+        super().__post_init__()
 
-@dataclass
+
+@dataclass(eq=False, repr=False)
 class Target(betterproto.Message):
     """
     Target is the information necessary to establish a single gNMI Subscribe
@@ -59,8 +60,11 @@ class Target(betterproto.Message):
         4, betterproto.TYPE_STRING, betterproto.TYPE_STRING
     )
 
+    def __post_init__(self) -> None:
+        super().__post_init__()
 
-@dataclass
+
+@dataclass(eq=False, repr=False)
 class Credentials(betterproto.Message):
     """
     Credentials contains the fields necessary for authentication of the client
@@ -71,3 +75,9 @@ class Credentials(betterproto.Message):
     password: str = betterproto.string_field(2)
     # Password lookup ID.
     password_id: str = betterproto.string_field(3)
+
+    def __post_init__(self) -> None:
+        super().__post_init__()
+
+
+from .. import gnmi as _gnmi__
