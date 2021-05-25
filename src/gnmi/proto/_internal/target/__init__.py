@@ -5,6 +5,7 @@ from dataclasses import dataclass
 from typing import Dict, List
 
 import betterproto
+from betterproto.grpc.grpclib_server import ServiceBase
 
 
 @dataclass(eq=False, repr=False)
@@ -37,9 +38,6 @@ class Configuration(betterproto.Message):
     # environment and any custom encoding.
     revision: int = betterproto.int64_field(536870911)
 
-    def __post_init__(self) -> None:
-        super().__post_init__()
-
 
 @dataclass(eq=False, repr=False)
 class Target(betterproto.Message):
@@ -60,9 +58,6 @@ class Target(betterproto.Message):
         4, betterproto.TYPE_STRING, betterproto.TYPE_STRING
     )
 
-    def __post_init__(self) -> None:
-        super().__post_init__()
-
 
 @dataclass(eq=False, repr=False)
 class Credentials(betterproto.Message):
@@ -75,9 +70,6 @@ class Credentials(betterproto.Message):
     password: str = betterproto.string_field(2)
     # Password lookup ID.
     password_id: str = betterproto.string_field(3)
-
-    def __post_init__(self) -> None:
-        super().__post_init__()
 
 
 from .. import gnmi as _gnmi__
