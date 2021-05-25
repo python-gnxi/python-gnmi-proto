@@ -10,11 +10,16 @@ on:
 
 jobs:
   tests:
+    name: ${{ matrix.os }} / ${{ matrix.python-version }}
     runs-on: ${{ matrix.os }}-latest
+    continue-on-error: ${{ matrix.experimental }}
     strategy:
       matrix:
         os: [Ubuntu]
         python-version: [3.6, 3.7, 3.8, 3.9]
+        experimental: [false]
+      fail-fast: false
+
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-go@v2
@@ -31,12 +36,7 @@ jobs:
 
       - name: Install poetry
         shell: bash
-        run: |
-          pip install poetry
-
-      - name: Upgrade pip
-        shell: bash
-        run: poetry run pip install --upgrade pip
+        run: python -m pip install poetry
 
       - name: Configure poetry
         shell: bash
