@@ -4,6 +4,7 @@
 from dataclasses import dataclass
 
 import betterproto
+from betterproto.grpc.grpclib_server import ServiceBase
 
 
 class ExtensionId(betterproto.Enum):
@@ -26,9 +27,6 @@ class Extension(betterproto.Message):
     # Well known extensions.
     master_arbitration: "MasterArbitration" = betterproto.message_field(2, group="ext")
 
-    def __post_init__(self) -> None:
-        super().__post_init__()
-
 
 @dataclass(eq=False, repr=False)
 class RegisteredExtension(betterproto.Message):
@@ -39,9 +37,6 @@ class RegisteredExtension(betterproto.Message):
 
     id: "ExtensionId" = betterproto.enum_field(1)
     msg: bytes = betterproto.bytes_field(2)
-
-    def __post_init__(self) -> None:
-        super().__post_init__()
 
 
 @dataclass(eq=False, repr=False)
@@ -57,9 +52,6 @@ class MasterArbitration(betterproto.Message):
     role: "Role" = betterproto.message_field(1)
     election_id: "Uint128" = betterproto.message_field(2)
 
-    def __post_init__(self) -> None:
-        super().__post_init__()
-
 
 @dataclass(eq=False, repr=False)
 class Uint128(betterproto.Message):
@@ -67,9 +59,6 @@ class Uint128(betterproto.Message):
 
     high: int = betterproto.uint64_field(1)
     low: int = betterproto.uint64_field(2)
-
-    def __post_init__(self) -> None:
-        super().__post_init__()
 
 
 @dataclass(eq=False, repr=False)
@@ -79,6 +68,3 @@ class Role(betterproto.Message):
     """
 
     id: str = betterproto.string_field(1)
-
-    def __post_init__(self) -> None:
-        super().__post_init__()
