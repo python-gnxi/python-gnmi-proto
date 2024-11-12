@@ -23,18 +23,18 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.6"
-protobuf = "^3.12"
-grpcio = "^1.30"
-betterproto = { version = "^2.0.0b1", allow-prereleases = true }
+python = "^3.10"
+protobuf = "^5.28"
+grpcio = "^1.67"
+betterproto = { version = "^2.0.0b7", allow-prereleases = true }
 
 [tool.poetry.dev-dependencies]
-grpcio-tools = "^1.30"
-black = "^19.10b0"
-pre-commit = { version = "^2.3.0", python = "^3.6.1" }
-pytest = "^5.4"
-pytest-asyncio = "^0.12"
-betterproto = { version = "^2.0.0b3", allow-prereleases = true, extras = ["compiler"] }
+grpcio-tools = "^1.67"
+black = "^24.10"
+pre-commit = "^4.0"
+pytest = "^8.3"
+pytest-asyncio = "^0.24"
+betterproto = { version = "^2.0.0b7", allow-prereleases = true, extras = ["compiler"] }
 
 [tool.black]
 line-length = 88
