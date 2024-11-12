@@ -49,7 +49,9 @@ def service_unauthenticated(channel) -> gnmi.proto.gNMIStub:
 
 @pytest.fixture
 def service_legacy(target, channel_legacy) -> gnmi.proto.legacy.gNMIStub:
-    return gnmi.proto.legacy.gNMIStub(channel_legacy,)
+    return gnmi.proto.legacy.gNMIStub(
+        channel_legacy,
+    )
 
 
 @pytest.fixture

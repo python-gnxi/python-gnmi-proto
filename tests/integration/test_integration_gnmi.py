@@ -13,6 +13,7 @@ from tests.integration.validation import (
 
 pytestmark = [pytest.mark.asyncio, pytest.mark.integration]
 
+
 @pytest.fixture
 def get_request_interfaces() -> gnmi.proto.GetRequest:
     return gnmi.proto.GetRequest(
@@ -20,7 +21,9 @@ def get_request_interfaces() -> gnmi.proto.GetRequest:
     )
 
 
-async def test_integration_permission_denied(service_unauthenticated, get_request_interfaces):
+async def test_integration_permission_denied(
+    service_unauthenticated, get_request_interfaces
+):
     with pytest.raises(grpclib.exceptions.GRPCError) as e:
         await service_unauthenticated.get(get_request_interfaces)
 
@@ -54,10 +57,14 @@ async def test_integration_update_set_string(service):
     update = gnmi.proto.Update(
         path=path, val=gnmi.proto.TypedValue(string_val=new_password)
     )
-    response = await service.set(gnmi.proto.SetRequest(update=[update]),)
+    response = await service.set(
+        gnmi.proto.SetRequest(update=[update]),
+    )
     assert isinstance(response, gnmi.proto.SetResponse)
 
-    response = await service.get(gnmi.proto.GetRequest(path=path),)
+    response = await service.get(
+        gnmi.proto.GetRequest(path=path),
+    )
     validate_response_get(response=response, value=new_password)
 
 
@@ -67,10 +74,14 @@ async def test_integration_update_set_json(service):
     update = gnmi.proto.Update(
         path=path, val=gnmi.proto.TypedValue(json_ietf_val=json.dumps(config).encode())
     )
-    response = await service.set(gnmi.proto.SetRequest(update=[update]),)
+    response = await service.set(
+        gnmi.proto.SetRequest(update=[update]),
+    )
     assert isinstance(response, gnmi.proto.SetResponse)
 
-    response = await service.get(gnmi.proto.GetRequest(path=path),)
+    response = await service.get(
+        gnmi.proto.GetRequest(path=path),
+    )
     validate_response_get(response=response, value=config)
 
 
@@ -79,5 +90,7 @@ async def test_integration_delete(service):
 
     await service.set(gnmi.proto.SetRequest(delete=[path]))
 
-    response = await service.get(gnmi.proto.GetRequest(path=create_path("system/clock")),)
+    response = await service.get(
+        gnmi.proto.GetRequest(path=create_path("system/clock")),
+    )
     validate_response_get(response=response, value={})

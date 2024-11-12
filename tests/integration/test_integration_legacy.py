@@ -30,7 +30,9 @@ def test_integration_legacy_capabilities(service_legacy):
 
 def test_integration__legacy_get(service_legacy, metadata_legacy):
     response = service_legacy.Get(
-        gnmi.proto.legacy.GetRequest(path=[create_legacy_path("interfaces")],),
+        gnmi.proto.legacy.GetRequest(
+            path=[create_legacy_path("interfaces")],
+        ),
         metadata=metadata_legacy,
     )
 
@@ -44,7 +46,10 @@ def _update(
     metadata: List[Tuple[str, str]],
 ) -> gnmi.proto.legacy.SetResponse:
     response = service_legacy.Set(
-        gnmi.proto.legacy.SetRequest(update=[update],), metadata=metadata,
+        gnmi.proto.legacy.SetRequest(
+            update=[update],
+        ),
+        metadata=metadata,
     )
     assert isinstance(response, gnmi.proto.legacy.SetResponse)
     return response
@@ -61,7 +66,10 @@ def test_integration_legacy_update_set_string(service_legacy, metadata_legacy):
     _update(update, service_legacy, metadata_legacy)
 
     response = service_legacy.Get(
-        gnmi.proto.legacy.GetRequest(path=[path],), metadata=metadata_legacy,
+        gnmi.proto.legacy.GetRequest(
+            path=[path],
+        ),
+        metadata=metadata_legacy,
     )
     validate_response_get(response=response, value=new_password)
 
@@ -76,7 +84,10 @@ def test_integration_legacy_update_set_json(service_legacy, metadata_legacy):
     _update(update, service_legacy, metadata_legacy)
 
     response = service_legacy.Get(
-        gnmi.proto.legacy.GetRequest(path=[path],), metadata=metadata_legacy,
+        gnmi.proto.legacy.GetRequest(
+            path=[path],
+        ),
+        metadata=metadata_legacy,
     )
     validate_response_get(response=response, value=config)
 
@@ -89,7 +100,9 @@ def test_integration_legacy_delete(service_legacy, metadata_legacy):
     )
 
     response = service_legacy.Get(
-        gnmi.proto.legacy.GetRequest(path=[create_legacy_path("system/clock")],),
+        gnmi.proto.legacy.GetRequest(
+            path=[create_legacy_path("system/clock")],
+        ),
         metadata=metadata_legacy,
     )
     validate_response_get(response=response, value={})
