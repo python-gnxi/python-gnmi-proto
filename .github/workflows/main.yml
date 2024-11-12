@@ -61,7 +61,7 @@ jobs:
       - name: Install gnmi_target
         shell: bash
         run: |
-          GO111MODULE=on go get github.com/google/gnxi/gnmi_target
+          go install -v github.com/google/gnxi/gnmi_target@latest
           echo `go env GOPATH`/bin >> $GITHUB_PATH
 
       - name: Run tests
