@@ -46,7 +46,7 @@ define protoc-legacy
 		proto=$(1);\
 		src="$(PROTO_PATH)/$${proto}.proto";\
 		dst="$(PACKAGE_LEGACY_PATH)/$${proto}.proto";\
-		install -D $${src} $${dst};\
+		install -d $${src} $${dst};\
 		touch $$(dirname $${dst}/__init__.py);\
 		sed -i s+'^option go_package = "$(PROTO_PACKAGE)'+'option go_package = "$(PACKAGE_LEGACY)'+g $${dst};\
 		sed -i s+'^import "$(PROTO_PACKAGE)'+'import "$(PACKAGE_LEGACY)'+g $${dst};\
