@@ -20,8 +20,6 @@ from gnmi.proto._internal.gnmi import (
     SubscriptionList,
     Subscription,
     QosMarking as QoSMarking,
-    Alias,
-    AliasList,
     SetRequest,
     SetResponse,
     UpdateResult,
@@ -34,6 +32,8 @@ from gnmi.proto._internal.gnmi import (
     Nil,
     GNmiStub as gNMIStub,
     CollectorStub,
+    GNmiBase as gNMIBase,
+    CollectorBase,
 )
 
 # noinspection PyProtectedMember
@@ -44,6 +44,14 @@ from gnmi.proto._internal.gnmi_ext import (
     MasterArbitration,
     Uint128,
     Role,
+    History,
+    TimeRange,
+    Commit,
+    CommitRequest,
+    CommitConfirm,
+    CommitCancel,
+    CommitSetRollbackDuration,
+    Depth,
 )
 
 # noinspection PyProtectedMember

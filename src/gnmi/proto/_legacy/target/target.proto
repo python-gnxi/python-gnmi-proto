@@ -26,7 +26,7 @@ option go_package = "gnmi/proto/_legacy/target";
 // Configuration holds all information necessary for a caching gNMI collector
 // to establish subscriptions to a list of gNMI targets.
 message Configuration {
-  // Request is a keyed list of all SubscriptionRequests that can be sent to
+  // Request is a keyed list of all SubscriptionRequests that can be sent
   // to targets in the Configuration.
   // The request must have at minimum a SubscriptionList with a prefix
   // containing origin and one or more Subscriptions.  Only the STREAM mode is
@@ -34,18 +34,19 @@ message Configuration {
   map<string, gnmi.SubscribeRequest> request = 1;
   // Target is the full list of targets connected to by a caching gNMI
   // collector.  The key of the map is a unique name to identify a target and
-  // is set in the prefix.target of a SubscriptionRequest message when connecting
-  // to each respective target.
+  // is set in the prefix.target of a SubscriptionRequest message when
+  // connecting to each respective target.
   map<string, Target> target = 2;
   // Identifier for the caching collector.
   string instance_id = 3;
+  // Additional config metadata.
+  map<string, string> meta = 4;
   // Revision for this Configuration. Systems that non-atomically write
   // configuration should populate and require revision, leveraging canonical
   // protobuf serialization of fields in order. Presence of this field makes no
   // guarantee. Consumers should account for atomicity constraints of their
   // environment and any custom encoding.
   int64 revision = 536870911;
-
 }
 
 // Target is the information necessary to establish a single gNMI Subscribe RPC
@@ -60,6 +61,10 @@ message Target {
   string request = 3;
   // Additional target metadata.
   map<string, string> meta = 4;
+  // How should the target be dialed. This option allows for a custom
+  // implementation for how this target is to be reached. If unset the
+  // collector's default implementation will be used.
+  string dialer = 5;
 }
 
 // Credentials contains the fields necessary for authentication of the client to

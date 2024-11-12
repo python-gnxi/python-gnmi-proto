@@ -21,6 +21,14 @@ from gnmi.proto._legacy.gnmi_ext.gnmi_ext_pb2 import (  # noqa
     MasterArbitration,
     RegisteredExtension,
     Role,
+    History,
+    TimeRange,
+    Commit,
+    CommitRequest,
+    CommitConfirm,
+    CommitCancel,
+    CommitSetRollbackDuration,
+    Depth,
 )
 
 from gnmi.proto._legacy.gnmi.gnmi_pb2_grpc import (  # noqa
@@ -30,8 +38,6 @@ from gnmi.proto._legacy.gnmi.gnmi_pb2_grpc import (  # noqa
 )
 
 from gnmi.proto._legacy.gnmi.gnmi_pb2 import (  # noqa
-    Alias,
-    AliasList,
     ASCII,
     BYTES,
     CapabilityRequest,

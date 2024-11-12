@@ -5,6 +5,7 @@ import gnmi.proto.legacy
 import grpc
 import grpclib.client
 import pytest
+import pytest_asyncio
 
 from tests.integration.target import Target, TargetConfig
 
@@ -14,7 +15,7 @@ def target_config() -> TargetConfig:
     return TargetConfig()
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 async def target(target_config) -> Target:
     async with Target(config=target_config) as t:
         yield t

@@ -39,9 +39,10 @@ async def main():
     response = await service.capabilities()
     print(response.to_json(indent=2))
 
-    response = await service.get(
+    request = gnmi.proto.GetRequest(
         path=[gnmi.proto.Path(elem=[gnmi.proto.PathElem(name="interfaces")])],
     )
+    response = await service.get(request)
     print(response.to_json(indent=2))
 
 
