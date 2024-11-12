@@ -15,7 +15,7 @@ jobs:
 
       - name: Get tag
         id: tag
-        run: echo ::set-output name=tag::${GITHUB_REF#refs/tags/}
+        run: echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
 
       - name: Set up Python 3.13
         uses: actions/setup-python@v5
